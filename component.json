@@ -9,7 +9,6 @@
   ],
   "dependencies": {
     "yields/merge": "1.0.0",
-    "component/css": "0.0.2",
     "jkroso/viewport": "0.1.4",
     "jkroso/computed-style": "0.1.0"
   },

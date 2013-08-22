@@ -2,7 +2,6 @@
 var style = require('computed-style')
 var viewport = require('viewport')
 var merge = require('merge')
-var css = require('css')
 
 /**
  * init flowtype on `el`
@@ -16,13 +15,13 @@ module.exports = function(el, options){
 	options = merge({
 		min: 14,
 		max: 18,
-		lineRatio: 1.45
+		lineRatio: 1.45,
+		minWidth: style(el).minWidth,
+		maxWidth: style(el).maxWidth
 	}, options)
 
-	var minWidth = ('min-width' in options ? options : style(el))['min-width']
-	var maxWidth = ('max-width' in options ? options : style(el))['max-width']
-	minWidth = parseFloat(minWidth)
-	maxWidth = parseFloat(maxWidth)
+	var minWidth = parseFloat(options.minWidth)
+	var maxWidth = parseFloat(options.maxWidth)
 	var widthDiff = maxWidth - minWidth
 	var fontMin = options.min
 	var fontDiff = options.max - fontMin
@@ -32,10 +31,8 @@ module.exports = function(el, options){
 		var width = parseFloat(style(el).width)
 		var percent = (width - minWidth) / widthDiff
 		var font = fontMin + (fontDiff * percent)
-		css(el, {
-			'line-height': font * lineRatio,
-			'font-size': font
-		})
+		el.style.lineHeight = font * lineRatio + 'px'
+		el.style.fontSize = font + 'px'
 	}
 
 	viewport.on('resize', resize)
