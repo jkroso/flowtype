@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<title>flowtype tests</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			padding: 60px;
+			font-size: 18px;
+			line-height: 26px;
+			margin: 0 auto;
+			max-width: 700px;
+			min-width: 300px;
+		}
+	</style>
+</head>
+<body>
+	<ul id="size">
+		<li id="width"></li>
+		<li id="font-size"></li>
+		<li id="line-height"></li>
+	</ul>
+	<h1>What does flowtype do?</h1>
+	<p>
+		Ideally, the most legible typography contains^ between 45 and 75 characters^ per line. This is difficult to accomplish for all screen widths with only CSS media-queries. FlowType.JS eases this difficulty by changing the font-size—and subsequently the line-height—based on a specific element's width. This allows for a perfect character count per line at any screen width.
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et
+	</p>
+	<script>
+		var each = Function.call.bind([].forEach)
+		var style = require('computed-style')
+		var viewport = require('viewport')
+		var flow = require('./')
+
+		flow(document.body, {
+			min: 14,
+			max: 22,
+			lineRatio: 1.45
+		})
+		
+		viewport.on('resize', function(){
+			var el = document.body
+			each(el.firstElementChild.children, function(item){
+				item.textContent = item.id + ' = ' + style(el)[item.id]
+			})
+		}).emit('resize')
+	</script>
+</body>
+</html>
