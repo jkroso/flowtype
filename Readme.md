@@ -21,11 +21,11 @@ var flowtype = require('flowtype')
 
   set flowtype up on `el` taking an optional `options` object. Possible settings are:
 
-  - min: desired font size in pixels at `el`'s min-width
-  - max: desired font size in pixels at `el`'s max-width
-  - min-width: overrides `el`'s real min-width
-  - max-width: overrides `el`'s real max-width
-  - lineRatio: size of lines relative to the font. defaults to `1.45`
+  - min: desired font size in pixels when at `el`'s `min-width`
+  - max: desired font size in pixels when at `el`'s `max-width`
+  - minWidth: overrides `el`'s real `min-width`
+  - maxWidth: overrides `el`'s real `max-width`
+  - lineRatio: size of `line-height` relative to the `font-size`. defaults to `1.45`
 
 ## Running the example
 
