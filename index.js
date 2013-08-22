@@ -24,14 +24,16 @@ module.exports = function(el, options){
 	minWidth = parseFloat(minWidth)
 	maxWidth = parseFloat(maxWidth)
 	var widthDiff = maxWidth - minWidth
-	var fontDiff = options.max - options.min
+	var fontMin = options.min
+	var fontDiff = options.max - fontMin
+	var lineRatio = options.lineRatio
 
 	function resize(){
 		var width = parseFloat(style(el).width)
 		var percent = (width - minWidth) / widthDiff
-		var font = options.min + (fontDiff * percent)
+		var font = fontMin + (fontDiff * percent)
 		css(el, {
-			'line-height': font * options.lineRatio,
+			'line-height': font * lineRatio,
 			'font-size': font
 		})
 	}
