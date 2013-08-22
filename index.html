@@ -1,1 +1,265 @@
-My Page
+<!doctype html>
+<html>
+<head>
+	<title>flowtype tests</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			padding: 60px;
+			font-size: 18px;
+			line-height: 26px;
+			margin: 0 auto;
+			max-width: 700px;
+			min-width: 300px;
+		}
+	</style>
+</head>
+<body>
+	<ul id="size">
+		<li id="width"></li>
+		<li id="font-size"></li>
+		<li id="line-height"></li>
+	</ul>
+	<h1>What does flowtype do?</h1>
+	<p>
+		Ideally, the most legible typography contains^ between 45 and 75 characters^ per line. This is difficult to accomplish for all screen widths with only CSS media-queries. FlowType.JS eases this difficulty by changing the font-size—and subsequently the line-height—based on a specific element's width. This allows for a perfect character count per line at any screen width.
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et
+	</p>
+	<p>
+		lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et
+	</p>
+	<script>!function (context, definition) {
+  if (typeof require == 'function' && typeof exports == 'object' && typeof module == 'object') {
+    module.exports = definition()
+  } else if (typeof define == 'function' && typeof define.amd  == 'object') {
+    define(definition)
+  } else {
+    context['flowtype'] = definition()
+  }
+}(this, function () {
+  var modules = {
+    "/node_modules/css-install.js": "module.exports = function (text) {\n\tvar style = document.createElement('style')\n\tstyle.appendChild(document.createTextNode(text))\n\tdocument.getElementsByTagName('head')[0].appendChild(style)\n}",
+    "/node_modules/jade-runtime.js": "\r\n/*!\r\n * Jade - runtime\r\n * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>\r\n * MIT Licensed\r\n */\r\n\r\n/**\r\n * Lame Array.isArray() polyfill for now.\r\n */\r\n\r\nif (!Array.isArray) {\r\n  Array.isArray = function(arr){\r\n    return '[object Array]' == Object.prototype.toString.call(arr);\r\n  };\r\n}\r\n\r\n/**\r\n * Lame Object.keys() polyfill for now.\r\n */\r\n\r\nif (!Object.keys) {\r\n  Object.keys = function(obj){\r\n    var arr = [];\r\n    for (var key in obj) {\r\n      if (obj.hasOwnProperty(key)) {\r\n        arr.push(key);\r\n      }\r\n    }\r\n    return arr;\r\n  }\r\n}\r\n\r\n/**\r\n * Merge two attribute objects giving precedence\r\n * to values in object `b`. Classes are special-cased\r\n * allowing for arrays and merging/joining appropriately\r\n * resulting in a string.\r\n *\r\n * @param {Object} a\r\n * @param {Object} b\r\n * @return {Object} a\r\n * @api private\r\n */\r\n\r\nexports.merge = function merge(a, b) {\r\n  var ac = a['class'];\r\n  var bc = b['class'];\r\n\r\n  if (ac || bc) {\r\n    ac = ac || [];\r\n    bc = bc || [];\r\n    if (!Array.isArray(ac)) ac = [ac];\r\n    if (!Array.isArray(bc)) bc = [bc];\r\n    a['class'] = ac.concat(bc).filter(nulls);\r\n  }\r\n\r\n  for (var key in b) {\r\n    if (key != 'class') {\r\n      a[key] = b[key];\r\n    }\r\n  }\r\n\r\n  return a;\r\n};\r\n\r\n/**\r\n * Filter null `val`s.\r\n *\r\n * @param {*} val\r\n * @return {Boolean}\r\n * @api private\r\n */\r\n\r\nfunction nulls(val) {\r\n  return val != null && val !== '';\r\n}\r\n\r\n/**\r\n * join array as classes.\r\n *\r\n * @param {*} val\r\n * @return {String}\r\n * @api private\r\n */\r\n\r\nfunction joinClasses(val) {\r\n  return Array.isArray(val) ? val.map(joinClasses).filter(nulls).join(' ') : val;\r\n}\r\n\r\n/**\r\n * Render the given attributes object.\r\n *\r\n * @param {Object} obj\r\n * @param {Object} escaped\r\n * @return {String}\r\n * @api private\r\n */\r\n\r\nexports.attrs = function attrs(obj, escaped){\r\n  var buf = []\r\n    , terse = obj.terse;\r\n\r\n  delete obj.terse;\r\n  var keys = Object.keys(obj)\r\n    , len = keys.length;\r\n\r\n  if (len) {\r\n    buf.push('');\r\n    for (var i = 0; i < len; ++i) {\r\n      var key = keys[i]\r\n        , val = obj[key];\r\n\r\n      if ('boolean' == typeof val || null == val) {\r\n        if (val) {\r\n          terse\r\n            ? buf.push(key)\r\n            : buf.push(key + '=\"' + key + '\"');\r\n        }\r\n      } else if (0 == key.indexOf('data') && 'string' != typeof val) {\r\n        buf.push(key + \"='\" + JSON.stringify(val) + \"'\");\r\n      } else if ('class' == key) {\r\n        if (escaped && escaped[key]){\r\n          if (val = exports.escape(joinClasses(val))) {\r\n            buf.push(key + '=\"' + val + '\"');\r\n          }\r\n        } else {\r\n          if (val = joinClasses(val)) {\r\n            buf.push(key + '=\"' + val + '\"');\r\n          }\r\n        }\r\n      } else if (escaped && escaped[key]) {\r\n        buf.push(key + '=\"' + exports.escape(val) + '\"');\r\n      } else {\r\n        buf.push(key + '=\"' + val + '\"');\r\n      }\r\n    }\r\n  }\r\n\r\n  return buf.join(' ');\r\n};\r\n\r\n/**\r\n * Escape the given string of `html`.\r\n *\r\n * @param {String} html\r\n * @return {String}\r\n * @api private\r\n */\r\n\r\nexports.escape = function escape(html){\r\n  return String(html)\r\n    .replace(/&/g, '&amp;')\r\n    .replace(/</g, '&lt;')\r\n    .replace(/>/g, '&gt;')\r\n    .replace(/\"/g, '&quot;');\r\n};\r\n\r\n/**\r\n * Re-throw the given `err` in context to the\r\n * the jade in `filename` at the given `lineno`.\r\n *\r\n * @param {Error} err\r\n * @param {String} filename\r\n * @param {String} lineno\r\n * @api private\r\n */\r\n\r\nexports.rethrow = function rethrow(err, filename, lineno, str){\r\n  if (!(err instanceof Error)) throw err;\r\n  if ((typeof window != 'undefined' || !filename) && !str) {\r\n    err.message += ' on line ' + lineno;\r\n    throw err;\r\n  }\r\n  try {\r\n    str =  str || require('fs').readFileSync(filename, 'utf8')\r\n  } catch (ex) {\r\n    rethrow(err, null, lineno)\r\n  }\r\n  var context = 3\r\n    , lines = str.split('\\n')\r\n    , start = Math.max(lineno - context, 0)\r\n    , end = Math.min(lines.length, lineno + context);\r\n\r\n  // Error context\r\n  var context = lines.slice(start, end).map(function(line, i){\r\n    var curr = i + start + 1;\r\n    return (curr == lineno ? '  > ' : '    ')\r\n      + curr\r\n      + '| '\r\n      + line;\r\n  }).join('\\n');\r\n\r\n  // Alter exception message\r\n  err.path = filename;\r\n  err.message = (filename || 'Jade') + ':' + lineno\r\n    + '\\n' + context + '\\n\\n' + err.message;\r\n  throw err;\r\n};\r\n",
+    "/example.html-1.js": "\nvar each = Function.call.bind([].forEach)\nvar style = require('computed-style')\nvar viewport = require('viewport')\nvar flow = require('./')\n\nflow(document.body, {\n\tmin: 14,\n\tmax: 22,\n\tlineRatio: 1.45\n})\n\nviewport.on('resize', function(){\n\tvar el = document.body\n\teach(el.firstElementChild.children, function(item){\n\t\titem.textContent = item.id + ' = ' + style(el)[item.id]\n\t})\n}).emit('resize')\n\t",
+    "/index.js": "\nvar style = require('computed-style')\nvar viewport = require('viewport')\nvar merge = require('merge')\nvar css = require('css')\n\n/**\n * init flowtype on `el`\n *\n * @param {Element} el\n * @param {Object} [options]\n * @api public\n */\n\nmodule.exports = function(el, options){\n\toptions = merge({\n\t\tmin: 14,\n\t\tmax: 18,\n\t\tlineRatio: 1.45\n\t}, options)\n\n\tvar minWidth = ('min-width' in options ? options : style(el))['min-width']\n\tvar maxWidth = ('max-width' in options ? options : style(el))['max-width']\n\tminWidth = parseFloat(minWidth)\n\tmaxWidth = parseFloat(maxWidth)\n\tvar widthDiff = maxWidth - minWidth\n\tvar fontDiff = options.max - options.min\n\n\tfunction resize(){\n\t\tvar width = parseFloat(style(el).width)\n\t\tvar percent = (width - minWidth) / widthDiff\n\t\tvar font = options.min + (fontDiff * percent)\n\t\tcss(el, {\n\t\t\t'line-height': font * options.lineRatio,\n\t\t\t'font-size': font\n\t\t})\n\t}\n\n\tviewport.on('resize', resize)\n\tresize()\n}",
+    "/node_modules/github.com/jkroso/computed-style/tarball/0.1.0/index.js": "\n/**\n * Get the computed style of a DOM element\n * \n *   style(document.body) // => {width:'500px', ...}\n * \n * @param {Element} element\n * @return {Object}\n */\n\n// Accessing via window for jsDOM support\nmodule.exports = window.getComputedStyle\n\n// Fallback to elem.currentStyle for IE < 9\nif (!module.exports) {\n\tmodule.exports = function (elem) {\n\t\treturn elem.currentStyle\n\t}\n}\n",
+    "/node_modules/github.com/jkroso/viewport/tarball/0.1.4/index.js": "\nvar Emitter = require('emitter')\nvar events = require('event')\n\n// mixin emitter\nEmitter(exports)\n\nvar html = document.getElementsByTagName('html')[0]\n\nevents.bind(window, 'resize', function(e){\n\tsize()\n\tposition()\n\texports.emit('resize', exports)\n})\n\nevents.bind(window, 'scroll', function(){\n\tposition()\n\texports.emit('scroll', exports)\n})\n\n/**\n * Initialise\n */\n\nsize()\nposition()\n\n/**\n * Update the size attributes\n */\n\nfunction size(){\n\texports.height = html.clientHeight\n\texports.width = html.clientWidth\n}\n\n/**\n * Update the position attributes\n */\n\nfunction position(){\n\texports.top = window.scrollY\n\texports.left = window.scrollX\n\texports.right = exports.left + exports.width\n\texports.bottom = exports.top + exports.height\n}\n",
+    "/node_modules/github.com/yields/merge/tarball/1.0.0/index.js": "\n/**\n * merge `b`'s properties with `a`'s.\n *\n * example:\n *\n *        var user = {};\n *        merge(user, console);\n *        // > { log: fn, dir: fn ..}\n *\n * @param {Object} a\n * @param {Object} b\n * @return {Object}\n */\n\nmodule.exports = function (a, b) {\n  for (var k in b) a[k] = b[k];\n  return a;\n};\n",
+    "/node_modules/github.com/component/css/tarball/0.0.2/index.js": "\n/**\n * Properties to ignore appending \"px\".\n */\n\nvar ignore = {\n  columnCount: true,\n  fillOpacity: true,\n  fontWeight: true,\n  lineHeight: true,\n  opacity: true,\n  orphans: true,\n  widows: true,\n  zIndex: true,\n  zoom: true\n};\n\n/**\n * Set `el` css values.\n *\n * @param {Element} el\n * @param {Object} obj\n * @return {Element}\n * @api public\n */\n\nmodule.exports = function(el, obj){\n  for (var key in obj) {\n    var val = obj[key];\n    if ('number' == typeof val && !ignore[key]) val += 'px';\n    el.style[key] = val;\n  }\n  return el;\n};\n",
+    "/node_modules/github.com/jkroso/Emitter/tarball/0.7.0/index.js": "\r\nvar call = Function.prototype.call\r\n\r\nmodule.exports = Emitter\r\n\r\n/**\r\n * Generate a new Emitter or mixin methods to `obj`\r\n *\r\n *   var emitter = new Emitter\r\n *   var emitter = Emitter({})\r\n */\r\n\r\nfunction Emitter (obj) {\r\n\tif (obj) {\r\n\t\tfor (var prop in proto) {\r\n\t\t\tobj[prop] = proto[prop]\r\n\t\t}\r\n\t\treturn obj\r\n\t}\r\n}\r\n\r\nvar proto = Emitter.prototype\r\n\r\n/**\r\n * Generate an event. All arguments after `topic` will be passed to\r\n * the handlers\r\n *\r\n *   emitter.emit('event', new Date)\r\n *   \r\n * @param {String} topic the events topic\r\n * @param {Any} [...]\r\n * @return {this}\r\n */\r\n\r\nEmitter.prototype.emit = function(topic){\r\n\tvar cbs = this._events\r\n\tif (!(cbs && (cbs = cbs[topic]))) return this\r\n\tvar i = cbs.length\r\n\t// try avoid using apply for speed\r\n\tswitch (arguments.length) {\r\n\t\tcase 1: while (i) cbs[--i].call(cbs[--i]);break\r\n\t\tcase 2: while (i) cbs[--i].call(cbs[--i], arguments[1]);break\r\n\t\tcase 3: while (i) cbs[--i].call(cbs[--i], arguments[1], arguments[2]);break\r\n\t\tcase 4: while (i) cbs[--i].call(cbs[--i], arguments[1], arguments[2], arguments[3]);break\r\n\t\tdefault:while (i) {\r\n\t\t\tvar ƒ = cbs[--i]\r\n\t\t\ttopic = cbs[--i]\r\n\t\t\tcall.apply(ƒ, arguments)\r\n\t\t}\r\n\t}\r\n\treturn this\r\n}\r\n\r\n/**\r\n * Add a subscription under a topic name\r\n *\r\n *   emitter.on('event', function(data){})\r\n *   emitter.on('event') // implies emitter.on('event', emitter.onEvent)\r\n *   emitter.on('event', function(){this === emitter}, emitter)\r\n *   emitter.on('event', function(){this === emitter}) // the current context is the default\r\n *\r\n * @param {String} topic\r\n * @param {Function} fn to be called when the topic is emitted\r\n * @param {Object} context to call the the function with\r\n * @return {this}\r\n */\r\n\r\nEmitter.prototype.on = function(topic, fn, context){\r\n\tvar cbs = this._events || (this._events = {})\r\n\t// avoid mutating the old array\r\n\tcbs[topic] = cbs[topic]\r\n\t\t? [context || this, fn].concat(cbs[topic])\r\n\t\t: [context || this, fn]\r\n\r\n\treturn this\r\n}\r\n\r\n/**\r\n * Remove subscriptions\r\n *\r\n *   emitter.off() // clears all topics\r\n *   emitter.off('topic') // clears all handlers from the topic 'topic'\r\n *   emitter.off('topic', fn) // as above but only if the handler === fn\r\n *   emitter.off('topic', fn, window) // as above but only if the context is `window`\r\n *\r\n * @param {String} [topic]\r\n * @param {Function} [fn]\r\n * @param {Any} [context]\r\n * @return {this}\r\n */\r\n\r\nEmitter.prototype.off = function(topic, fn, context){\r\n\tvar cbs = this._events\r\n\tif (!cbs) return this\r\n\r\n\t// no filters\r\n\tif (topic == null) {\r\n\t\tfor (var i in cbs) delete cbs[i]\r\n\t} \r\n\t// just a topic\r\n\telse if (!fn) {\r\n\t\tdelete cbs[topic]\r\n\t} \r\n\telse {\r\n\t\tvar events = cbs[topic]\r\n\t\tif (!events) return this\r\n\t\tvar i = events.length\r\n\t\twhile (i--) {\r\n\t\t\tif (events[i--] !== fn) continue\r\n\t\t\t// if `context`, then it needs to match too\r\n\t\t\tif (context && events[i] !== context) continue\r\n\t\t\tevents = events.slice()\r\n\t\t\tevents.splice(i, 2)\r\n\t\t\tcbs[topic] = events\r\n\t\t}\r\n\t}\r\n\treturn this\r\n}\r\n\r\nEmitter.prototype.once = function(topic, fn, context){\r\n\tif (!fn) throw new Error('requires a function')\r\n\tvar self = this\r\n\treturn this.on(topic, function once() {\r\n\t\tfn.apply(this, arguments)\r\n\t\tself.off(topic, once)\r\n\t}, context)\r\n}\r\n\r\n/**\r\n * test if a subscription is present\r\n *\r\n * @param {String} topic\r\n * @param {Function} [ƒ=*]\r\n * @param {Any} [ctx=*]\r\n * @return {Boolean}\r\n */\r\n\r\nEmitter.prototype.hasSubscription = function(topic, ƒ, ctx){\r\n\tvar cbs = this._events\r\n\tif (!cbs) return false\r\n\tif (!(cbs = cbs[topic])) return false\r\n\tif (!ƒ) return true\r\n\tfor (var i = 0, len = cbs.length; i < len; i+=2) {\r\n\t\tif (cbs[i + 1] === ƒ) {\r\n\t\t\tif (ctx == null || ctx === cbs[i]) return true\r\n\t\t}\r\n\t}\r\n\treturn false\r\n}",
+    "/node_modules/github.com/component/event/tarball/0.1.0/index.js": "\n/**\n * Bind `el` event `type` to `fn`.\n *\n * @param {Element} el\n * @param {String} type\n * @param {Function} fn\n * @param {Boolean} capture\n * @return {Function}\n * @api public\n */\n\nexports.bind = function(el, type, fn, capture){\n  if (el.addEventListener) {\n    el.addEventListener(type, fn, capture);\n  } else {\n    el.attachEvent('on' + type, fn);\n  }\n  return fn;\n};\n\n/**\n * Unbind `el` event `type`'s callback `fn`.\n *\n * @param {Element} el\n * @param {String} type\n * @param {Function} fn\n * @param {Boolean} capture\n * @return {Function}\n * @api public\n */\n\nexports.unbind = function(el, type, fn, capture){\n  if (el.removeEventListener) {\n    el.removeEventListener(type, fn, capture);\n  } else {\n    el.detachEvent('on' + type, fn);\n  }\n  return fn;\n};\n"
+  }
+  
+  var aliases = {
+    "/example.html": "/example.html-1.js",
+    "/node_modules/computed-style/index.js": "/node_modules/github.com/jkroso/computed-style/tarball/0.1.0/index.js",
+    "/node_modules/viewport/index.js": "/node_modules/github.com/jkroso/viewport/tarball/0.1.4/index.js",
+    "/node_modules/merge/index.js": "/node_modules/github.com/yields/merge/tarball/1.0.0/index.js",
+    "/node_modules/css/index.js": "/node_modules/github.com/component/css/tarball/0.0.2/index.js",
+    "/node_modules/github.com/jkroso/viewport/tarball/0.1.4/node_modules/emitter/index.js": "/node_modules/github.com/jkroso/Emitter/tarball/0.7.0/index.js",
+    "/node_modules/github.com/jkroso/viewport/tarball/0.1.4/node_modules/event/index.js": "/node_modules/github.com/component/event/tarball/0.1.0/index.js"
+  }
+    
+  /**  
+   * give each module an identity  
+   */  
+    
+  for (var file in modules) {  
+  	modules[file] = {  
+  		source: modules[file],  
+  		loaded: false,  
+  		exports: {}  
+  	}  
+  }  
+    
+  /**  
+   * add aliases to the module map  
+   */  
+    
+  for (var alias in aliases) {  
+  	if (alias in modules) continue  
+  	modules[alias] = modules[aliases[alias]]   
+  }  
+    
+  /**  
+   * Require the given path.  
+   *  
+   * @param {String} path  
+   * @param {String} parent  
+   * @return {Any} module.exports  
+   */  
+    
+  function require (path, parent){  
+  	parent || (parent = '/')  
+    
+  	var fullpath = resolve(parent, path)  
+  	if (!fullpath) throw Error('failed to require '+path+' from '+parent)  
+  	if (fullpath in aliases) fullpath = aliases[fullpath]  
+  	var module = modules[fullpath]  
+    
+  	if (!module.loaded) {  
+  		module.loaded = true  
+  		Function(  
+  			'module',  
+  			'exports',  
+  			'require',  
+  			// sourceURL tells the browser we are evaling a file  
+  			module.source + '\n//@ sourceURL=' + encodeURI(prettyPath(fullpath))  
+  		).call(module.exports, module, module.exports,  
+  			// relative `require` function  
+  			function(path){  
+  				var base = dirname(fullpath)  
+  				if (path[0] == '.') path = join(base, path)  
+  				return require(path, base)  
+  			}  
+  		)  
+  	}  
+  	return module.exports  
+  }  
+    
+  function prettyPath(path){  
+  	if (/github\.com\/([^\/]+)\/([^\/]+)\/tarball\/([^\/]+)\/(.*)/.test(path)) {  
+  		return RegExp.$1+'/'+RegExp.$2+'@'+RegExp.$3 + '/' + RegExp.$4  
+  	}  
+  	return path  
+  }  
+    
+  /**  
+   * Figure out what the full path to the module is  
+   *  
+   * @param {String} base, the current directory  
+   * @param {String} path, what was inside the call to require  
+   * @return {String}  
+   * @api private  
+   */  
+    
+  function resolve (base, path) {  
+  	// absolute  
+  	if (/^\/|(?:\w+:\/\/)/.test(path)) {  
+  		return complete(path)  
+  	} else if (/^\./.test(path)) {  
+  		// todo: fix join for urls  
+  		return complete(join(base, path))  
+  	}  
+    
+  	// walk up looking in node_modules  
+  	while (true) {  
+  		var res = complete(join(base, 'node_modules', path))  
+  		if (res) return res  
+  		if (base == '/' || base == '.') break  
+  		base = dirname(base)  
+  	}  
+  }  
+    
+  /**  
+   * get the parent directory path  
+   *  
+   * @param {String} path  
+   * @return {String}  
+   */  
+    
+  function dirname(path){  
+  	var i = path.lastIndexOf('/')  
+  	if (i < 0) return '.'  
+  	return path.slice(0, i) || '/'  
+  }  
+    
+  /**  
+   * Clean up a messy path  
+   *  
+   *   normalize('/foo//baz/quux/..') // => '/foo/baz'  
+   *  
+   * @param {String} path  
+   * @return {String}  
+   */  
+    
+  function normalize(path){  
+    var segs = path.split('/')  
+    if (segs.length <= 1) return path  
+    var res = []  
+    var up = 0  
+    
+    for (var i = 0, len = segs.length; i < len; i++) {  
+      var seg = segs[i]  
+      if (seg === '' || seg === '.') continue  
+      if (seg === '..') up++, res.pop()  
+      else up--, res.push(seg)  
+    }  
+    
+    if (up > 0) {  
+      if (path[0] == '/') return '/'  
+      res = '..'  
+      while (--up) res += '/..'  
+      return res  
+    }  
+    return path[0] == '/'  
+      ? '/' + res.join('/')  
+      : res.join('/') || '.'  
+  }  
+    
+  /**  
+   * Concatenate a sequence of path segments to generate one flat path  
+   *   
+   * @param {String} [...]  
+   * @return {String}  
+   */  
+    
+  function join(path){  
+  	for (var i = 1, len = arguments.length; i < len; i++) {  
+  		path += '/' + arguments[i]  
+  	}  
+    return normalize(path)  
+  }  
+    
+  /**  
+   * Produce an ordered list of paths to try  
+   *   
+   * @param {String} path  
+   * @return {Array} of path  
+   * @private  
+   */  
+    
+  function completions(path){  
+  	// A directory  
+  	if (path.match(/\/$/)) {  
+  		return [  
+  			path+'index.js',  
+  			path+'index.json',  
+  			path+'package.json'  
+  		]  
+  	}  
+  	// could be a directory or a file  
+  	return [  
+  		path,  
+  		path+'.js',  
+  		path+'.json',  
+  		path+'/index.js',  
+  		path+'/index.json',  
+  		path+'/package.json'  
+  	]  
+  }  
+    
+  /**  
+   * find the first matching path completion  
+   *  
+   * @param {String} path  
+   * @return {String} full path of the module  
+   */  
+    
+  function complete(path) {  
+  	return completions(path).filter(function (path) {  
+  		return path in modules  
+  	})[0]  
+  }  
+  
+  return require("/example.html-1.js")
+})
+</script>
+</body>
+</html>
