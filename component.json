@@ -13,7 +13,7 @@
     "jkroso/computed-style": "0.1.0"
   },
   "development": {
-    "jkroso/serve": "1.4.8"
+    "jkroso/serve": "1.5.0"
   },
   "scripts": [
     "index.js"
