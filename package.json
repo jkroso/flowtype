@@ -1,17 +1,17 @@
 {
   "name": "flowtype",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "keep font-size in proportion with its containers size",
   "dependencies": {
-
+    "computed-style": "jkroso/computed-style#0.1.0",
+    "viewport": "jkroso/viewport#0.1.5",
+    "merge": "yields/merge#2f357cb"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jkroso/flowtype.git"
+  "devDependencies": {
+    "serve": "jkroso/serve#1.5.1"
   },
-  "bugs": {
-    "url": "https://github.com/jkroso/flowtype/issues"
-  },
+  "repository": "git://github.com/jkroso/flowtype.git",
+  "bugs": "https://github.com/jkroso/flowtype/issues",
   "keywords": ["font","responsive"],
   "author": "Jake Rosoman",
   "license": "MIT"
