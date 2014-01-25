@@ -1,13 +1,15 @@
 
 # flowtype
 
-  keep font-size in proportion with its containers size
+keep font-size in proportion with its containers size
 
 ## Installation
 
-_With [component](//github.com/component/component), [packin](//github.com/jkroso/packin) or [npm](//github.com/isaacs/npm)_  
+With your favourite package manager:
 
-	$ {package mananger} install jkroso/flowtype
+- [packin](//github.com/jkroso/packin): `packin add result`
+- [component](//github.com/component/component#installing-packages): `component install jkroso/result`
+- [npm](//npmjs.org/doc/cli/npm-install.html): `npm install result`
 
 then in your app:
 
@@ -17,9 +19,9 @@ var flowtype = require('flowtype')
 
 ## API
 
-### flowtype(el:Element, [options]:Object)
+### flowtype(el, [options])
 
-  set flowtype up on `el` taking an optional `options` object. Possible settings are:
+set flowtype up on `el` taking an optional `options` object. Possible settings are:
 
   - min: desired font size in pixels when at `el`'s `min-width`
   - max: desired font size in pixels when at `el`'s `max-width`
@@ -29,7 +31,7 @@ var flowtype = require('flowtype')
 
 ## Running the example
 
-Just run `make` and navigate to it.
+Just run `make` and navigate your browser to it.
 
 ## Thanks
 
