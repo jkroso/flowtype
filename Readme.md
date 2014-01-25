@@ -7,9 +7,9 @@ keep font-size in proportion with its containers size
 
 With your favourite package manager:
 
-- [packin](//github.com/jkroso/packin): `packin add result`
-- [component](//github.com/component/component#installing-packages): `component install jkroso/result`
-- [npm](//npmjs.org/doc/cli/npm-install.html): `npm install result`
+- [packin](//github.com/jkroso/packin): `packin add flowtype`
+- [component](//github.com/component/component#installing-packages): `component install jkroso/flowtype`
+- [npm](//npmjs.org/doc/cli/npm-install.html): `npm install flowtype`
 
 then in your app:
 
