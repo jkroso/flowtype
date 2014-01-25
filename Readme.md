@@ -21,7 +21,7 @@ var flowtype = require('flowtype')
 
 ### flowtype(el, [options])
 
-set flowtype up on `el` taking an optional `options` object. Possible settings are:
+setup flowtype on `el` taking an optional `options` object. Possible settings are:
 
   - min: desired font size in pixels when at `el`'s `min-width`
   - max: desired font size in pixels when at `el`'s `max-width`
@@ -40,6 +40,8 @@ flowtype(document.body, {
 ```
 
 In the above example when the document is `800px` or wider flowtype will set the font size to `22px`. When the document is `300px` or less it will be set the font size to `14px`. And when the document is at any width between `300px` and `800px` it will set the font size to match proportionally. e.g. if the document was `500px` wide thats 40% of the distance from `300px` to `800px` so the font size will be set to 40% of the distance from `14px` to `22px` which is `17.2px`.
+
+Note: flowtype sets font size in pixels on the `el` you passed in. So you need to ensure that any children inside `el` have their font set in `em`s. Unless you want their font size to stay fixed.
 
 ## Running the example
 
