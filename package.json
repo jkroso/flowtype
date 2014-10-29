@@ -8,7 +8,7 @@
     "viewport": "^0.1.6"
   },
   "devDependencies": {
-    "serve": "jkroso/serve#1.5.1"
+
   },
   "repository": "git://github.com/jkroso/flowtype.git",
   "bugs": "https://github.com/jkroso/flowtype/issues",
