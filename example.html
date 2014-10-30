@@ -36,7 +36,6 @@
   </p>
   <script>
     var each = Function.call.bind([].forEach)
-    var style = require('computed-style')
     var viewport = require('viewport')
     var flow = require('./')
 
@@ -49,7 +48,7 @@
     viewport.on('resize', function(){
       var el = document.body
       each(el.firstElementChild.children, function(item){
-        item.textContent = item.id + ' = ' + style(el)[item.id]
+        item.textContent = item.id + ' = ' + getComputedStyle(el)[item.id]
       })
     }).emit('resize')
   </script>

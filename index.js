@@ -1,5 +1,3 @@
-
-var style = require('computed-style')
 var viewport = require('viewport')
 var merge = require('merge')
 
@@ -16,8 +14,8 @@ module.exports = function(el, options){
     min: 14,
     max: 18,
     lineRatio: 1.45,
-    minWidth: style(el).minWidth,
-    maxWidth: style(el).maxWidth
+    minWidth: getComputedStyle(el).minWidth,
+    maxWidth: getComputedStyle(el).maxWidth
   }, options)
 
   var minWidth = parseFloat(options.minWidth)
@@ -28,7 +26,7 @@ module.exports = function(el, options){
   var lineRatio = options.lineRatio
 
   function resize(){
-    var width = parseFloat(style(el).width)
+    var width = parseFloat(getComputedStyle(el).width)
     var percent = (width - minWidth) / widthDiff
     var font = fontMin + (fontDiff * percent)
     el.style.lineHeight = font * lineRatio + 'px'
