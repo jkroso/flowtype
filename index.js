@@ -34,5 +34,6 @@ module.exports = function(el, options){
   }
 
   viewport.on('resize', resize)
+  window.onhashchange = resize
   resize()
 }
