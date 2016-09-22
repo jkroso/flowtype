@@ -5,11 +5,7 @@ keep font-size in proportion with its containers size
 
 ## Installation
 
-With your favourite package manager:
-
-- [packin](//github.com/jkroso/packin): `packin add flowtype`
-- [component](//github.com/component/component#installing-packages): `component install jkroso/flowtype`
-- [npm](//npmjs.org/doc/cli/npm-install.html): `npm install flowtype`
+`npm install flowtype`
 
 then in your app:
 
