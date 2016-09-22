@@ -33,6 +33,6 @@ module.exports = function(el, options){
     el.style.fontSize = font + 'px'
   }
 
-  viewport.on('resize', resize)
+  viewport.addListener(resize)
   resize()
 }

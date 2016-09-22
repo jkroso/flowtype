@@ -45,12 +45,14 @@
       lineRatio: 1.45
     })
 
-    viewport.on('resize', function(){
+    function onChange(){
       var el = document.body
       each(el.firstElementChild.children, function(item){
         item.textContent = item.id + ' = ' + getComputedStyle(el)[item.id]
       })
-    }).emit('resize')
+    }
+    viewport.addListener(onChange)
+    onChange()
   </script>
 </body>
 </html>
